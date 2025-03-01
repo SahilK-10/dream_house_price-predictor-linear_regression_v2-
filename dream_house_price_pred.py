@@ -62,7 +62,7 @@ def predict_price():
     # Predict price
     predicted_price = model.predict(user_data)[0]
 
-    print(f"Estimated House Price: ₹{predicted_price:.2f}")
+    print(f"\nEstimated House Price: ₹{predicted_price:.2f}")
 
 
 # Run the function
