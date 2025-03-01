@@ -36,40 +36,33 @@ plt.ylabel("Prices")
 plt.legend()
 plt.show()
 
+print("\nHouse Price Prediction Questionnaire \n")
+
 
 def predict_price():
-    print("\nHouse Price Prediction Questionnaire \n")
 
-    user_data = []
+    # User input
+    user_data = [
+        float(input("Enter Area (sq ft): ")),
+        int(input("Enter Number of Bedrooms: ")),
+        int(input("Enter Number of Bathrooms: ")),
+        int(input("Enter Number of Stories: ")),
+        int(input("Does the house have a main road? (1 for Yes, 0 for No): ")),
+        int(input("Does the house have a guest room? (1 for Yes, 0 for No): ")),
+        int(input("Does the house have a basement? (1 for Yes, 0 for No): ")),
+        int(input("Does the house have hot water heating? (1 for Yes, 0 for No): ")),
+        int(input("Does the house have air conditioning? (1 for Yes, 0 for No): ")),
+        int(input("Enter Number of Parking Spaces: ")),
+        int(input("Enter Furnishing Status (0: Unfurnished, 1: Semi-Furnished, 2: Furnished): "))
+    ]
 
-    # Asking user for input values
-    user_data.append(float(input("Enter Area (sq ft): ")))
-    user_data.append(int(input("Enter Number of Bedrooms: ")))
-    user_data.append(int(input("Enter Number of Bathrooms: ")))
-    user_data.append(int(input("Enter Number of Stories: ")))
-
-    # Yes/No Questions
-    for col in yes_no_columns:
-        response = input(
-            f"Does the house have {col.replace('_', ' ')}? (yes/no): ").strip().lower()
-        user_data.append(1 if response == "yes" else 0)
-
-    user_data.append(int(input("Enter Parking Spaces: ")))
-
-    # Furnishing Status
-    furnishing = input(
-        "Enter Furnishing Status (unfurnished/semi-furnished/furnished): ").strip().lower()
-    furnishing_map = {"unfurnished": 0, "semi-furnished": 1, "furnished": 2}
-    user_data.append(furnishing_map.get(furnishing, 0)
-                     )  # Default to "unfurnished"
-
-    # Convert to numpy array and reshape for prediction
-    user_data = np.array(user_data).reshape(1, -1)
+    # Convert to DataFrame with correct column names
+    user_data = pd.DataFrame([user_data], columns=x.columns)
 
     # Predict price
     predicted_price = model.predict(user_data)[0]
 
-    print("\nEstimated House Price: ₹{:.2f}".format(predicted_price))
+    print(f"Estimated House Price: ₹{predicted_price:.2f}")
 
 
 # Run the function
